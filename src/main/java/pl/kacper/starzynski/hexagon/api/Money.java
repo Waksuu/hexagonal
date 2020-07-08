@@ -1,4 +1,4 @@
-package pl.kacper.starzynski.hexagon.domain;
+package pl.kacper.starzynski.hexagon.api;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ public class Money {
     private final BigDecimal value;
     private final Currency currency;
 
-    Money add(Money addAmount) {
+    public Money add(Money addAmount) {
         if (currencyDoesNotMatch(addAmount)) {
             throw new RuntimeException("Currency does not match");
         }
@@ -26,7 +26,7 @@ public class Money {
         return value.compareTo(BigDecimal.ZERO) < 0;
     }
 
-    Money subtract(Money money) {
+    public Money subtract(Money money) {
         if (currencyDoesNotMatch(money)) {
             throw new RuntimeException("Currency does not match");
         }
@@ -42,7 +42,7 @@ public class Money {
         return value.compareTo(BigDecimal.ZERO) > 0;
     }
 
-    boolean isGreaterThan(Money money) {
+    public boolean isGreaterThan(Money money) {
         if (currencyDoesNotMatch(money)) {
             throw new RuntimeException("Currency does not match");
         }

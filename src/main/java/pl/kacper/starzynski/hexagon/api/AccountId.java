@@ -1,4 +1,4 @@
-package pl.kacper.starzynski.hexagon.domain;
+package pl.kacper.starzynski.hexagon.api;
 
 import lombok.RequiredArgsConstructor;
 

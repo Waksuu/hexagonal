@@ -2,6 +2,7 @@ package pl.kacper.starzynski.hexagon.domain;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import pl.kacper.starzynski.hexagon.api.Money;
 
 @RequiredArgsConstructor(staticName = "create", access = AccessLevel.PACKAGE)
 public class Balance {

@@ -1,6 +1,7 @@
 package pl.kacper.starzynski.hexagon.domain;
 
 import org.junit.jupiter.api.Test;
+import pl.kacper.starzynski.hexagon.api.Money;
 
 import java.math.BigDecimal;
 import java.util.Currency;

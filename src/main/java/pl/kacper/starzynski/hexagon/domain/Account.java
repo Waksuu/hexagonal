@@ -1,6 +1,8 @@
 package pl.kacper.starzynski.hexagon.domain;
 
 import lombok.AllArgsConstructor;
+import pl.kacper.starzynski.hexagon.api.AccountId;
+import pl.kacper.starzynski.hexagon.api.Money;
 
 @AllArgsConstructor
 public class Account {

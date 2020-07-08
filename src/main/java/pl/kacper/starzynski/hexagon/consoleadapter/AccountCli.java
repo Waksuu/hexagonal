@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pl.kacper.starzynski.hexagon.HexagonApplication;
-import pl.kacper.starzynski.hexagon.application.AccountService;
-import pl.kacper.starzynski.hexagon.application.command.AddBalanceCommand;
+import pl.kacper.starzynski.hexagon.api.AccountId;
+import pl.kacper.starzynski.hexagon.api.AccountService;
+import pl.kacper.starzynski.hexagon.api.Money;
+import pl.kacper.starzynski.hexagon.api.command.AddBalanceCommand;
 
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -16,7 +19,7 @@ public class AccountCli implements CommandLineRunner {
     private final AccountService accountService;
 
     public static void main(String[] args) {
-        SpringApplication.run(HexagonApplication.class, args);
+        SpringApplication.run(AccountCli.class, args);
     }
 
     @Override
@@ -25,6 +28,7 @@ public class AccountCli implements CommandLineRunner {
         String newBalance = null; //read from console
         String currency = null; //read from console
 
-        accountService.addBalance(new AddBalanceCommand(accountId, newBalance, currency));
+        accountService.addBalance(new AddBalanceCommand(AccountId.of(accountId), Money.create(new BigDecimal(newBalance),
+                Currency.getInstance(currency))));
     }
 }
