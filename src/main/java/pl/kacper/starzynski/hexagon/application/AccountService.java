@@ -7,7 +7,7 @@ import pl.kacper.starzynski.hexagon.application.command.WithdrawBalanceCommand;
 import pl.kacper.starzynski.hexagon.domain.Account;
 import pl.kacper.starzynski.hexagon.domain.AccountId;
 import pl.kacper.starzynski.hexagon.domain.AccountRepository;
-import pl.kacper.starzynski.hexagon.domain.Balance;
+import pl.kacper.starzynski.hexagon.domain.Money;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -19,13 +19,13 @@ public class AccountService {
 
     public void addBalance(AddBalanceCommand command) {
         Account account = accountRepository.findById(AccountId.of(command.getAccountId()));
-        account.addBalance(Balance.create(new BigDecimal(command.getNewBalance()), Currency.getInstance(command.getCurrency())));
+        account.addBalance(Money.create(new BigDecimal(command.getNewBalance()), Currency.getInstance(command.getCurrency())));
         accountRepository.save(account);
     }
 
     public void withdraw(WithdrawBalanceCommand command) {
         Account account = accountRepository.findById(AccountId.of(command.getAccountId()));
-        account.withdraw(Balance.create(new BigDecimal(command.getWithdrawAmount()), Currency.getInstance(command.getCurrency())));
+        account.withdraw(Money.create(new BigDecimal(command.getWithdrawAmount()), Currency.getInstance(command.getCurrency())));
         accountRepository.save(account);
     }
 }
