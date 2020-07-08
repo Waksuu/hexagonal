@@ -9,7 +9,6 @@ import pl.kacper.starzynski.hexagon.api.AccountService;
 import pl.kacper.starzynski.hexagon.api.Money;
 import pl.kacper.starzynski.hexagon.api.command.AddBalanceCommand;
 
-import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.UUID;
 
@@ -28,7 +27,19 @@ public class AccountCli implements CommandLineRunner {
         String newBalance = null; //read from console
         String currency = null; //read from console
 
-        accountService.addBalance(new AddBalanceCommand(AccountId.of(accountId), Money.create(new BigDecimal(newBalance),
-                Currency.getInstance(currency))));
+        accountService.addBalance(new AddBalanceCommand(AccountId.of(accountId),
+                Money.create(getWholeNumber(newBalance), getDecimalNumber(newBalance), Currency.getInstance(currency))));
+    }
+
+    private long getWholeNumber(String newBalance) {
+        return Long.parseLong(getSplittedDecimalValue(newBalance)[0]);
+    }
+
+    private long getDecimalNumber(String newBalance) {
+        return Long.parseLong(getSplittedDecimalValue(newBalance)[1]);
+    }
+
+    private String[] getSplittedDecimalValue(String newBalance) {
+        return newBalance.split("\\.");
     }
 }

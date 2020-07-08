@@ -13,7 +13,6 @@ import pl.kacper.starzynski.hexagon.api.command.WithdrawBalanceCommand;
 import pl.kacper.starzynski.hexagon.webadapter.request.AddBalanceRequest;
 import pl.kacper.starzynski.hexagon.webadapter.request.WithdrawBalanceRequest;
 
-import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.UUID;
 
@@ -25,12 +24,27 @@ public class AccountController {
     @PutMapping("/{accountId}/add-balance")
     public void addBalance(@PathVariable UUID accountId, @RequestBody AddBalanceRequest request) {
         accountService.addBalance(new AddBalanceCommand(AccountId.of(accountId),
-                Money.create(new BigDecimal(request.getNewBalance()), Currency.getInstance(request.getCurrency()))));
+                Money.create(getWholeNumber(request.getNewBalance()), getDecimalNumber(request.getNewBalance()),
+                        Currency.getInstance(request.getCurrency()))));
     }
 
     @PutMapping("/{accountId}/withdraw-balance")
     public void withdrawBalance(@PathVariable UUID accountId, @RequestBody WithdrawBalanceRequest request) {
         accountService.withdraw(new WithdrawBalanceCommand(AccountId.of(accountId),
-                Money.create(new BigDecimal(request.getWithdrawAmount()), Currency.getInstance(request.getCurrency()))));
+                Money.create(getWholeNumber(request.getWithdrawAmount()), getDecimalNumber(request.getWithdrawAmount()),
+                        Currency.getInstance(request.getCurrency()))));
+    }
+
+    // You can probably put this in util/commons
+    private long getWholeNumber(String newBalance) {
+        return Long.parseLong(getSplittedDecimalValue(newBalance)[0]);
+    }
+
+    private long getDecimalNumber(String newBalance) {
+        return Long.parseLong(getSplittedDecimalValue(newBalance)[1]);
+    }
+
+    private String[] getSplittedDecimalValue(String newBalance) {
+        return newBalance.split("\\.");
     }
 }

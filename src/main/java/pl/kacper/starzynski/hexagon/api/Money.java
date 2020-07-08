@@ -7,7 +7,10 @@ import java.util.Currency;
 
 @RequiredArgsConstructor(staticName = "create")
 public class Money {
-    private final BigDecimal value;
+    // This probably should be VO on its own
+    // Validations etc/changed logic
+    private final long wholeNumber;
+    private final long decimalNumber;
     private final Currency currency;
 
     public Money add(Money addAmount) {
