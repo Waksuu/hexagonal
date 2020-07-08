@@ -11,7 +11,7 @@ public class Balance {
         return new Balance(money.add(addAmount));
     }
 
-    public Balance withdraw(Money withdrawAmount) {
+    Balance withdraw(Money withdrawAmount) {
         if (isOverdraft(withdrawAmount)) {
             throw new RuntimeException("Withdraw amount exceeded balance");
         }
